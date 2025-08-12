@@ -12,7 +12,7 @@ void loop() {
   // No es necesario poner nada en el loop para este ejemplo
 }
 ```
-### Ejercicio n°2: LED Intermitente (Blink)
+### Ejercicio n°2: LED Parpadeante (Blink)
 ```js
 void setup() {  // Configuración inicial (ej: pines como entrada/salida)
   pinMode(13, OUTPUT);  // Pin 13 como salida
@@ -30,6 +30,9 @@ void loop() {   // Se repite infinitamente
   //delay(1000);
 }
 ```
+
+<a href="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Led%20parpadeante.png">Led parpadeante.</a>
+
 
 ### Ejercicio n°3: LED pulsador
 ```js
