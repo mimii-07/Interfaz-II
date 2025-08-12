@@ -31,7 +31,7 @@ void loop() {   // Se repite infinitamente
 }
 ```
 
-<a href="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Led%20parpadeante.png">Led parpadeante.</a>
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Led%20parpadeante.png" width="1024" height"550" />
 
 
 ### Ejercicio n°3: LED pulsador
