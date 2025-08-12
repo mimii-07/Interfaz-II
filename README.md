@@ -47,6 +47,7 @@ void loop() {
   }
 }
 ```
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Led%20pulsador.png" width="1024" height="550" />
 
 ### Ejercicio n°4: Led potenciometro
 ```js
@@ -59,7 +60,7 @@ void loop() {
   analogWrite(9, brillo);               // Ajustar brillo
 }
 ```
-
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Led%20ponteciometro.png" width="1024" height="550" />
 
 ### Ejercicio n°5 Arduino: "Semaforo"
 ```js
@@ -110,6 +111,7 @@ void loop() {
   delay(2000); // 2 segundos
 }
 ```
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Semaforo.png" width="1024" height="550" />
 
 
 
