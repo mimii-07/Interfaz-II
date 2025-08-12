@@ -30,8 +30,7 @@ void loop() {   // Se repite infinitamente
   //delay(1000);
 }
 ```
-
-<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Led%20parpadeante.png" width="1024" height"550" />
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Led%20parpadeante.png" width="1024" height="550" /> 
 
 
 ### Ejercicio n°3: LED pulsador
