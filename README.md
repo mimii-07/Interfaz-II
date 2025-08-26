@@ -101,12 +101,20 @@ void loop() {
   digitalWrite(LED_1, HIGH);  // Rojo autos encendido
   digitalWrite(LED_5, LOW);   // Rojo peatones apagado
   digitalWrite(LED_4, HIGH);  // Verde peatones encendido
-  delay(5000); // 5 segundos
+  delay(1000); // 5 segundos
+  digitalWrite(LED_4, LOW);
+  delay(1000);
+  digitalWrite(LED_4, HIGH);
+  delay(1000);
+  digitalWrite(LED_4, LOW);
+  delay(1000);
+  digitalWrite(LED_1, LOW);
 
   // 🚦 Fase 4: Rojo autos, rojo peatones (tiempo intermedio)
   //digitalWrite(LED_4, LOW);   // Verde peatones apagado
   //digitalWrite(LED_5, HIGH);  // Rojo peatones encendido
   delay(2000); // 2 segundos
+}
 }
 ```
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Semaforo.png" width="1024" height="550" />
