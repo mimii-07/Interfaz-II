@@ -190,7 +190,6 @@ void loop() {
 }
 
 CODIGO PROCESSING
-
 import processing.serial.*;
 
 Serial myPort;
