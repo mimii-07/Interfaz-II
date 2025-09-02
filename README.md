@@ -233,4 +233,70 @@ void draw() {
 ```
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/botonprocessing.png" width="1024" height="550" />
 
+### Ejercicio n°8: "Arduino+Boton+Potenciometro+Processing"
+# Codigo Arduino
+```js
+int buttonPin = 2;       // Pin del botón
+int potPin = A0;         // Pin del potenciómetro
+int buttonState = 0;
+
+void setup() {
+  pinMode(buttonPin, INPUT_PULLUP); // Botón con resistencia interna
+  Serial.begin(9600);
+}
+
+void loop() {
+  buttonState = digitalRead(buttonPin);
+
+  if (buttonState == HIGH) {   // Botón presionado
+    int potValue = analogRead(potPin);   // 0 - 1023
+    Serial.print("BTN,");     // etiqueta para Processing
+    Serial.println(potValue); // mando el valor junto con el evento
+    delay(200);               // debounce simple
+  }
+}
+```
+# Codigo Processing
+```js
+void draw() {
+  //background(0);
+  
+  // Dibujar todos los círculos guardados
+  //fill(0, 150, 255);
+  //noStroke();
+  fill(random(16), random(176), random(196,200), 10);
+  stroke(255, 250, 250, 50);
+  for (CircleData c : circles) {
+    ellipse(c.x, c.y, random(c.size), random(c.size));
+  }
+  
+  // Leer datos de Arduino
+  if (myPort.available() > 0) {
+    String val = myPort.readStringUntil('\n');
+    if (val != null) {
+      val = trim(val);
+      if (val.startsWith("BTN")) {
+        // Extraer el valor del potenciómetro
+        String[] parts = split(val, ',');
+        if (parts.length == 2) {
+          float potVal = float(parts[1]);
+          float circleSize = map(potVal, 0, 1023, 10, 100); // tamaño 10-100 px
+          circles.add(new CircleData(random(width), random(height), circleSize));
+        }
+      }
+    }
+  }
+}
+
+// Clase para guardar datos de cada círculo
+class CircleData {
+  float x, y, size;
+  CircleData(float x, float y, float size) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+  }
+}
+```
+
 
