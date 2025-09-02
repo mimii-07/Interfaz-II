@@ -170,7 +170,7 @@ void draw()
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Arduino%20Processing.png" width="1024" height="550" />
 
 ### Ejercicio n°7: "Arduino+Boton+Processing"
-´´´js
+```js
 CODIGO ARDUINO
 int buttonPin = 2;  // Pin del botón
 int buttonState = 0;
