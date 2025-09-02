@@ -299,5 +299,6 @@ class CircleData {
   }
 }
 ```
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/botonpotenciometro.png" width="1024" height="550" />
 
 
