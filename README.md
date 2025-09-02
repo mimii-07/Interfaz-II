@@ -170,9 +170,8 @@ void draw()
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Arduino%20Processing.png" width="1024" height="550" />
 
 ### Ejercicio n°7: "Arduino+Boton+Processing"
-
-## Arduino
 ´´´js
+CODIGO ARDUINO
 int buttonPin = 2;  // Pin del botón
 int buttonState = 0;
 
@@ -190,8 +189,9 @@ void loop() {
   }
 }
 ```
-## Processing
-```js
+
+CODIGO PROCESSING
+
 import processing.serial.*;
 
 Serial myPort;
@@ -213,11 +213,11 @@ void draw() {
   //background(0);
   
   // Dibujar círculos almacenados
-  fill(223, 82, 240);
+  fill(random(223), random(82), random(30,200), 10);
   //noStroke();
-  stroke(102, 160, 234);
+  stroke(250, 250, 250, 50);
   for (PVector c : circles) {
-    ellipse(c.x, c.y, 30, 30);
+    ellipse(c.x, c.y, random (30, 200), random(30,330));
   }
   
   // Revisar si llega algo de Arduino
