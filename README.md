@@ -48,6 +48,7 @@ void loop() {
 }
 ```
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Led%20pulsador.png" width="1024" height="550" />
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/pulsador.jpeg" width="1024" height="550" />
 
 ### Ejercicio n°4: Led potenciometro
 ```js
