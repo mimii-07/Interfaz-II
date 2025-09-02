@@ -170,8 +170,8 @@ void draw()
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Arduino%20Processing.png" width="1024" height="550" />
 
 ### Ejercicio n°7: "Arduino+Boton+Processing"
+##### Codigo Arduino
 ```js
-CODIGO ARDUINO
 int buttonPin = 2;  // Pin del botón
 int buttonState = 0;
 
@@ -188,8 +188,9 @@ void loop() {
     delay(200);               // Evitar rebotes
   }
 }
-
-CODIGO PROCESSING
+```
+##### Codigo Processing
+```js
 import processing.serial.*;
 
 Serial myPort;
@@ -234,7 +235,7 @@ void draw() {
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/botonprocessing.png" width="1024" height="550" />
 
 ### Ejercicio n°8: "Arduino+Boton+Potenciometro+Processing"
-# Codigo Arduino
+##### Codigo Arduino
 ```js
 int buttonPin = 2;       // Pin del botón
 int potPin = A0;         // Pin del potenciómetro
@@ -256,7 +257,7 @@ void loop() {
   }
 }
 ```
-# Codigo Processing
+##### Codigo Processing
 ```js
 void draw() {
   //background(0);
