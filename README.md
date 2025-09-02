@@ -232,6 +232,6 @@ void draw() {
   }
 }
 ```
-
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/botonprocessing.png" width="1024" height="550" />
 
 
