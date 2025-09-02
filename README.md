@@ -188,7 +188,6 @@ void loop() {
     delay(200);               // Evitar rebotes
   }
 }
-```
 
 CODIGO PROCESSING
 
