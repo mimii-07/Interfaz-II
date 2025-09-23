@@ -301,4 +301,183 @@ class CircleData {
 ```
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/botonpotenciometro.png" width="1024" height="550" />
 
+### Ejercicio n°9: "For if Else"
+```js
+int leds[] = {2, 3, 4, 5}; // Creamos un arreglo con los pines donde van conectados los LEDs
 
+void setup() {
+  // Esta función corre solo una vez al iniciar Arduino
+  for (int i = 0; i < 4; i++) {         // Recorre el arreglo desde i = 0 hasta i = 3
+    pinMode(leds[i], OUTPUT);           // Configura cada pin del arreglo como salida (para controlar LEDs)
+  }
+}
+
+void loop() {
+  // Esta función corre en bucle infinito
+  for (int i = 0; i < 4; i++) {         // Recorre los 4 LEDs, uno por uno
+    if (i % 2 == 0) {                   // Si el índice es par (0, 2)...
+      digitalWrite(leds[i], HIGH);      // Enciende el LED correspondiente
+    } else {                            // Si el índice es impar (1, 3)...
+      digitalWrite(leds[i], LOW);       // Apaga el LED correspondiente
+    }
+    delay(500);                         // Espera 0,5 segundos antes de pasar al siguiente
+  }
+}
+```
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Captura%20de%20pantalla%202025-09-23%20133146.png" width="1024" height="550" />
+
+### Ejercicio n°10: "Botonera"
+##### Código Arduino
+```js
+// --- Configuración de botones ---
+const int numButtons = 3;
+const int buttonPins[numButtons] = {2, 4, 7};
+const int ledButtonPins[numButtons] = {9, 10, 11}; // LEDs botones
+
+// --- Configuración de potenciómetros ---
+const int numPots = 2;
+const int potPins[numPots] = {A0, A1};
+const int ledPotPins[numPots] = {3, 5}; // LEDs PWM
+
+// Variables de estados previos
+int lastButtonState[numButtons];
+int lastPotValue[numPots];
+
+void setup() {
+  Serial.begin(9600);
+
+  // Configurar botones y LEDs
+  for (int i = 0; i < numButtons; i++) {
+    pinMode(buttonPins[i], INPUT_PULLUP);
+    pinMode(ledButtonPins[i], OUTPUT);
+    lastButtonState[i] = digitalRead(buttonPins[i]);
+  }
+
+  // Configurar LEDs de potenciómetros
+  for (int i = 0; i < numPots; i++) {
+    pinMode(ledPotPins[i], OUTPUT);
+    lastPotValue[i] = analogRead(potPins[i]);
+  }
+}
+
+void loop() {
+  // Leer y enviar botones
+  for (int i = 0; i < numButtons; i++) {
+    int buttonState = digitalRead(buttonPins[i]);
+
+    // LED se enciende cuando botón está presionado
+    digitalWrite(ledButtonPins[i], buttonState == LOW ? HIGH : LOW);
+
+    if (buttonState != lastButtonState[i]) {  // enviar cambios
+      Serial.print("B");
+      Serial.print(i); 
+      Serial.print(":");
+      Serial.println(buttonState);
+      lastButtonState[i] = buttonState;
+    }
+  }
+
+  // Leer y enviar potenciómetros
+  for (int i = 0; i < numPots; i++) {
+    int potValue = analogRead(potPins[i]); // 0–1023
+    int pwmValue = potValue / 4;           // 0–255
+
+    // Ajustar LED según valor
+    analogWrite(ledPotPins[i], pwmValue);
+
+    if (abs(pwmValue - lastPotValue[i]) > 2) { // evitar ruido
+      Serial.print("P");
+      Serial.print(i);
+      Serial.print(":");
+      Serial.println(pwmValue);
+      lastPotValue[i] = pwmValue;
+    }
+  }
+
+  delay(10);
+}
+```
+##### Código Processing
+```js
+// Importamos librería para comunicación serial
+import processing.serial.*;
+// Importamos librería Minim para manejar audio
+import ddf.minim.*;
+
+// Declaramos el objeto serial para comunicarnos con Arduino
+Serial myPort;
+// Objeto principal de Minim
+Minim minim;
+// Array de reproductores de audio (3 pistas)
+AudioPlayer[] players;
+// Variable para guardar el índice de la pista que está sonando
+int currentTrack = -1;  // -1 significa que no hay pista activa al inicio
+
+void setup() {
+  size(400, 200); // Ventana de 400x200 píxeles
+  
+  // --- Configuración del puerto serial ---
+  printArray(Serial.list()); // Muestra en consola la lista de puertos disponibles
+  myPort = new Serial(this, Serial.list()[0], 9600); // Abrimos el primer puerto de la lista a 9600 baudios
+  
+  // --- Configuración de audio ---
+  minim = new Minim(this); // Inicializamos Minim
+  players = new AudioPlayer[3]; // Creamos un array de 3 reproductores
+  
+  // Cargamos los 3 archivos de audio desde la carpeta "data"
+  players[0] = minim.loadFile("audio1.mp3", 2048); 
+  players[1] = minim.loadFile("audio2.mp3", 2048); 
+  players[2] = minim.loadFile("audio3.mp3", 2048); 
+}
+
+void draw() {
+  background(0); // Fondo negro
+  fill(255);     // Color blanco para el texto
+  textSize(16);  // Tamaño del texto
+  
+  // Mostramos en pantalla qué botón está activo
+  text("Botón actual: " + (currentTrack == -1 ? "ninguno" : currentTrack), 20, 40);
+}
+
+void serialEvent(Serial myPort) {
+  // Leemos la cadena que llega desde Arduino hasta el salto de línea
+  String inString = trim(myPort.readStringUntil('\n'));
+  
+  // Si no llega nada, salimos
+  if (inString == null) return;
+
+  // --- Si el mensaje recibido empieza con "B" significa que es un botón ---
+  if (inString.startsWith("B")) {
+    // Quitamos la letra "B" y separamos el mensaje en partes (ejemplo "0:0")
+    String[] parts = split(inString.substring(1), ':');
+    
+    // Si realmente recibimos dos partes (índice y estado)
+    if (parts.length == 2) {
+      int buttonIndex = int(parts[0]); // Número del botón (0,1,2)
+      int state = int(parts[1]);       // Estado del botón (0 = presionado, 1 = suelto)
+      
+      // Si el botón fue presionado (LOW = 0 en Arduino)
+      if (state == 0) { 
+        playTrack(buttonIndex); // Llamamos a la función para reproducir la pista correspondiente
+      }
+    }
+  }
+}
+
+// --- Función que reproduce una pista según el botón ---
+void playTrack(int index) {
+  // Si ya había una pista sonando, la pausamos y la rebobinamos al inicio
+  if (currentTrack != -1 && players[currentTrack].isPlaying()) {
+    players[currentTrack].pause();
+    players[currentTrack].rewind();
+  }
+  
+  // Reproducimos en bucle la pista seleccionada
+  players[index].loop();
+  
+  // Actualizamos la variable para saber cuál es la pista activa
+  currentTrack = index;
+}
+```
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Captura%20de%20pantalla%202025-09-23%20134418.png" width="1024" height="550" />
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/PHOTO-2025-09-23-13-38-29.jpg" width="1024" height="550" />
