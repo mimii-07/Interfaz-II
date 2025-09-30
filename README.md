@@ -482,3 +482,50 @@ void playTrack(int index) {
 ```
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Captura%20de%20pantalla%202025-09-23%20134418.png" width="1024" height="550" />
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/PHOTO-2025-09-23-13-38-29.jpg" width="1024" height="550" />
+
+### Ejercicio con nota: "Led pulsador modificado (intercambio de luces)"
+##### Código Arduino
+```js
+void setup() {
+  pinMode(2, INPUT);  // Botón como entrada
+  pinMode(13, OUTPUT);
+  pinMode(4, INPUT); 
+  pinMode(12, OUTPUT); 
+}
+void loop() {
+  if (digitalRead(2) == HIGH) {  // Si se presiona el botón
+    digitalWrite(13, HIGH);
+    digitalWrite(12, LOW);
+  } else {
+    digitalWrite(13, LOW);
+    digitalWrite(12, HIGH);
+  }
+}
+```
+##### Explicación del ejercicio y la modificacion
+```js
+Comence copiando el codigo original:
+void setup() {
+  pinMode(2, INPUT);  // Botón como entrada
+  pinMode(13, OUTPUT);
+}
+void loop() {
+  if (digitalRead(2) == HIGH) {  // Si se presiona el botón
+    digitalWrite(13, HIGH);
+  } else {
+    digitalWrite(13, LOW);
+  }
+}
+Ese, luego le agregre al void setup:
+ pinMode(4, INPUT); 
+  pinMode(12, OUTPUT);
+Esto para agregar una nueva luz led a la placa y al codigo. Luego agregue lo siguiente al void loop:
+ digitalWrite(12, LOW);
+} else {
+ digitalWrite(12, HIGH);
+Esto es para indicar que cuando la luz que conecta en el 12 (Blanco) se apague cuando la luz del 13 (verde) prenda, y viceversa.
+Consegui lo que buscaba que era agregar una luz y que vayan intercambiandose.
+```
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Captura%20de%20pantalla%202025-09-30%20125438.png" width="1024" height="550"/>
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/IMG_9636.jpeg" width="1024" height="550"/>
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/IMG_9638.jpeg" width="1024" height="550"/>
