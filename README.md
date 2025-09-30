@@ -119,6 +119,7 @@ void loop() {
 }
 ```
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Semaforo.png" width="1024" height="550" />
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/IMG_9635.jpg" width="1024" height="550" />
 
 ### Ejercicio n°6: "Arduino Processing"
 ```js
