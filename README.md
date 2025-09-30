@@ -502,9 +502,9 @@ void loop() {
   }
 }
 ```
-##### Explicación del ejercicio y la modificacion
+##### Explicación del ejercicio y la modificación
 ```js
-Comence copiando el codigo original:
+Comencé copiando el código original:
 void setup() {
   pinMode(2, INPUT);  // Botón como entrada
   pinMode(13, OUTPUT);
@@ -516,15 +516,16 @@ void loop() {
     digitalWrite(13, LOW);
   }
 }
-Ese, luego le agregre al void setup:
+Ese, luego le agregue al void setup:
  pinMode(4, INPUT); 
   pinMode(12, OUTPUT);
-Esto para agregar una nueva luz led a la placa y al codigo. Luego agregue lo siguiente al void loop:
+Esto para agregar una nueva luz led a la placa y al código. Luego agregue lo siguiente al void loop:
  digitalWrite(12, LOW);
 } else {
  digitalWrite(12, HIGH);
 Esto es para indicar que cuando la luz que conecta en el 12 (Blanco) se apague cuando la luz del 13 (verde) prenda, y viceversa.
-Consegui lo que buscaba que era agregar una luz y que vayan intercambiandose.
+Conseguí lo que buscaba que era agregar una luz y que vayan intercambiando.
+Todo esto fue un poco a prueba y error ya que no sabía cómo hacer que un solo botón mandara dos luces led. Finalmente describir que podía hacer una conexión o puente. Conecto un cable del botón a la placa en la parte positiva para que hacer puente y ahí poder conectar un cable que lleve la señal de ambas luces al Arduino a la entrada 2.
 ```
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Captura%20de%20pantalla%202025-09-30%20125438.png" width="1024" height="550"/>
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/IMG_9636.jpeg" width="1024" height="550"/>
