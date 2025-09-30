@@ -31,7 +31,7 @@ void loop() {   // Se repite infinitamente
 }
 ```
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Led%20parpadeante.png" width="1024" height="550" /> 
-
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/IMG_9634.jpg" width="1024" height="550"/>
 
 ### Ejercicio n°3: LED pulsador
 ```js
@@ -301,7 +301,7 @@ class CircleData {
 ```
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/botonpotenciometro.png" width="1024" height="550" />
 
-### Ejercicio n°9: "For if Else"
+### Ejercicio n°9: "If + Else"
 ```js
 int leds[] = {2, 3, 4, 5}; // Creamos un arreglo con los pines donde van conectados los LEDs
 
