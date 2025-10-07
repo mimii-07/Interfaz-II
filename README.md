@@ -489,8 +489,7 @@ void playTrack(int index) {
 void setup() {
   pinMode(2, INPUT);  // Botón como entrada
   pinMode(13, OUTPUT);
-  pinMode(4, INPUT); 
-  pinMode(12, OUTPUT); 
+  pinMode(12, OUTPUT);
 }
 void loop() {
   if (digitalRead(2) == HIGH) {  // Si se presiona el botón
@@ -516,8 +515,7 @@ void loop() {
     digitalWrite(13, LOW);
   }
 }
-Ese, luego le agregue al void setup:
- pinMode(4, INPUT); 
+Ese, luego le agregue al void setup: 
   pinMode(12, OUTPUT);
 Esto para agregar una nueva luz led a la placa y al código. Luego agregue lo siguiente al void loop:
  digitalWrite(12, LOW);
