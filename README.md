@@ -656,7 +656,7 @@ void loop() {
   Serial.println(potValue);
   delay(20);
 }
-```js
+```
 #### Codigo processing
 ```js
 import processing.serial.*;
