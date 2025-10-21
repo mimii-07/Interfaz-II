@@ -541,7 +541,7 @@ Todo esto fue un poco a prueba y error ya que no sabía cómo hacer que un solo 
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/IMG_9636.jpeg" width="1024" height="550"/>
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/IMG_9638.jpeg" width="1024" height="550"/>
 
-### Ejercicio cuerpo, video, sensor sharp.
+### Ejercicio n°12: Cuerpo, video, sensor sharp.
 #### Codigo Arduino
 ```js
 // --- Sensor Sharp conectado al pin A0 ---
