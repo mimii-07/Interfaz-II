@@ -540,3 +540,106 @@ Todo esto fue un poco a prueba y error ya que no sabía cómo hacer que un solo 
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Captura%20de%20pantalla%202025-09-30%20125438.png" width="1024" height="550"/>
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/IMG_9636.jpeg" width="1024" height="550"/>
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/IMG_9638.jpeg" width="1024" height="550"/>
+
+### Ejercicio cuerpo, video, sensor sharp.
+#### Codigo Arduino
+```js
+// --- Sensor Sharp conectado al pin A0 ---
+int sensorPin = A0;
+int valor;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  valor = analogRead(sensorPin);
+  Serial.println(valor);
+  delay(50); // envío cada 50 ms
+}
+```
+#### Codigo Processing
+```js
+// --- Librerías necesarias ---
+import processing.serial.*;
+import processing.video.*;
+
+// --- Variables de cámara y serial ---
+Capture cam;
+Serial myPort;
+
+// --- Variables del sensor ---
+float sensorValue = 0;
+float suavizado = 0;
+
+// --- Parámetros para detección de silueta ---
+float umbral = 100; // controla el contraste para definir la silueta
+
+void setup() {
+  size(1280, 720);
+  background(0);
+  
+  // --- Inicializar cámara ---
+  String[] cameras = Capture.list();
+  if (cameras.length == 0) {
+    println("No se encontró cámara.");
+    exit();
+  } else {
+    println("Cámara encontrada: " + cameras[0]);
+    cam = new Capture(this, cameras[0]);
+    cam.start();
+  }
+  
+  // --- Inicializar puerto serie (Arduino) ---
+  // Puedes ver la lista de puertos con println(Serial.list());
+  String portName = Serial.list()[0]; 
+  myPort = new Serial(this, "/dev/cu.usbmodem1101", 9600);
+  //myPort = new Serial(this, portName, 9600);
+}
+
+void draw() {
+  background(0);
+  
+  // --- Leer datos del sensor ---
+  while (myPort.available() > 0) {
+    String inString = trim(myPort.readStringUntil('\n'));
+    if (inString != null) {
+      sensorValue = float(inString);
+      suavizado = lerp(suavizado, sensorValue, 0.1);
+    }
+  }
+  
+  // --- Mapear los valores del sensor ---
+  float escala = map(suavizado, 0, 1023, 1.5, 0.5); // tamaño de la silueta
+  float alpha = map(suavizado, 0, 1023, 255, 80);   // opacidad según distancia
+  
+  // --- Captura de video ---
+  if (cam.available()) {
+    cam.read();
+  }
+
+  // --- Dibujar silueta desde la cámara ---
+  cam.loadPixels();
+  loadPixels();
+  
+  for (int y = 0; y < cam.height; y++) {
+    for (int x = 0; x < cam.width; x++) {
+      int loc = x + y * cam.width;
+      color c = cam.pixels[loc];
+      float brillo = brightness(c);
+      
+      // Si el brillo es menor que el umbral, dibujamos píxel blanco (silueta)
+      if (brillo < umbral) {
+        int px = int(x * escala);
+        int py = int(y * escala);
+        if (px < width && py < height) {
+          stroke(255, alpha);
+          point(px, py);
+        }
+      }
+    }
+  }
+}
+```
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/IMG_2112.jpeg" width="1024" height="550"/>
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Captura%20de%20pantalla%202025-10-21%20130905.png" width="1024" height="550"/>
