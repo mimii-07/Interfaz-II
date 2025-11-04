@@ -541,7 +541,167 @@ Todo esto fue un poco a prueba y error ya que no sabía cómo hacer que un solo 
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/IMG_9636.jpeg" width="1024" height="550"/>
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/IMG_9638.jpeg" width="1024" height="550"/>
 
-### Ejercicio n°12: Cuerpo, video, sensor sharp.
+### Ejercicio n°12: Sensor Sharp
+#### Codigo Arduino
+```js
+// Definir el pin del sensor Sharp
+int sharpPin = A0;
+
+void setup() {
+  Serial.begin(9600); // Iniciar comunicación serial
+}
+
+void loop() {
+  int sensorValue = analogRead(sharpPin); // Leer valor del sensor
+  Serial.println(sensorValue); // Enviar valor a Processing
+  delay(100); // Esperar un momento
+}
+```
+#### Codigo Processing
+```js
+import processing.serial.*;
+
+Serial myPort;  // Create object from Serial class
+static String val;    // Data received from the serial port
+int sensorVal = 0;
+
+void setup()
+{
+  background(0); 
+  //fullScreen(P3D);
+   size(1080, 720);
+   noStroke();
+  noFill();
+  String portName = "COM5";// Change the number (in this case ) to match the corresponding port number connected to your Arduino. 
+
+  myPort = new Serial(this, "/dev/cu.usbmodem1101", 9600);
+}
+
+void draw()
+{
+  if ( myPort.available() > 0) {  // If data is available,
+  val = myPort.readStringUntil('\n'); 
+  try {
+   sensorVal = Integer.valueOf(val.trim());
+  }
+  catch(Exception e) {
+  ;
+  }
+  println(sensorVal); // read it and store it in vals!
+  }  
+ //background(0);
+  // Scale the mouseX value from 0 to 640 to a range between 0 and 175
+  float c = map(sensorVal, 0, width, 0, 400);
+  // Scale the mouseX value from 0 to 640 to a range between 40 and 300
+  float d = map(sensorVal, 0, width, 40,500);
+  fill(255, c, 0);
+  ellipse(width/2, height/2, d, d);   
+
+}
+```
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/SENSOR%20SHARP.jpeg" width="1024" height="550"/>
+
+### Ejercicio n°13: Sensor humedad
+#### Codigo Arduino
+```js
+void setup()
+{
+  Serial.begin(9600);// abre el puerto serial y Establece la velocidad en baudios a 9600 bps
+}
+void loop()
+{
+  int sensorValue;
+  sensorValue = analogRead(0);   //conectar el sensor de humedad al pin analogo 0
+  Serial.println(sensorValue); //imprime el valor a serial.
+  delay(200);
+}
+```
+#### Codigo Processing
+```js
+// --- Librerías necesarias ---
+import processing.serial.*;
+import processing.video.*;
+
+// --- Variables de cámara y serial ---
+Capture cam;
+Serial myPort;
+
+// --- Variables del sensor ---
+float sensorValue = 0;
+float suavizado = 0;
+
+// --- Parámetros para detección de silueta ---
+float umbral = 100; // controla el contraste para definir la silueta
+
+void setup() {
+  size(1280, 720);
+  background(0);
+  
+  // --- Inicializar cámara ---
+  String[] cameras = Capture.list();
+  if (cameras.length == 0) {
+    println("No se encontró cámara.");
+    exit();
+  } else {
+    println("Cámara encontrada: " + cameras[0]);
+    cam = new Capture(this, cameras[0]);
+    cam.start();
+  }
+  
+  // --- Inicializar puerto serie (Arduino) ---
+  // Puedes ver la lista de puertos con println(Serial.list());
+  String portName = Serial.list()[0]; 
+  myPort = new Serial(this, "/dev/cu.usbmodem1101", 9600);
+  //myPort = new Serial(this, portName, 9600);
+}
+
+void draw() {
+  background(0);
+  
+  // --- Leer datos del sensor ---
+  while (myPort.available() > 0) {
+    String inString = trim(myPort.readStringUntil('\n'));
+    if (inString != null) {
+      sensorValue = float(inString);
+      suavizado = lerp(suavizado, sensorValue, 0.1);
+    }
+  }
+  
+  // --- Mapear los valores del sensor ---
+  float escala = map(suavizado, 0, 1023, 1.5, 0.5); // tamaño de la silueta
+  float alpha = map(suavizado, 0, 1023, 255, 80);   // opacidad según distancia
+  
+  // --- Captura de video ---
+  if (cam.available()) {
+    cam.read();
+  }
+
+  // --- Dibujar silueta desde la cámara ---
+  cam.loadPixels();
+  loadPixels();
+  
+  for (int y = 0; y < cam.height; y++) {
+    for (int x = 0; x < cam.width; x++) {
+      int loc = x + y * cam.width;
+      color c = cam.pixels[loc];
+      float brillo = brightness(c);
+      
+      // Si el brillo es menor que el umbral, dibujamos píxel blanco (silueta)
+      if (brillo < umbral) {
+        int px = int(x * escala);
+        int py = int(y * escala);
+        if (px < width && py < height) {
+          stroke(255, alpha);
+          point(px, py);
+        }
+      }
+    }
+  }
+}
+```
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/SENSOR%20HUMEDAD.jpeg width="1024" height="550"/>
+
+### Ejercicio n°14: Cuerpo, video, sensor sharp.
 #### Codigo Arduino
 ```js
 // --- Sensor Sharp conectado al pin A0 ---
@@ -644,7 +804,7 @@ void draw() {
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/IMG_2112.jpeg" width="1024" height="550"/>
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Captura%20de%20pantalla%202025-10-21%20130905.png" width="1024" height="550"/>
 
-### Ejercicio N°13: Promedio de imagenes
+### Ejercicio N°15: Promedio de imagenes
 #### Codigo arduino
 ```js
 void setup() {
@@ -844,4 +1004,22 @@ void draw() {
 
   buffer.popMatrix();
   buffer.endDraw();
+
+  // --- Dibujar mosaico en pantalla ---
+  float tileW = width / float(repeticiones);
+  float tileH = height / float(repeticiones);
+
+  for (int i = 0; i < repeticiones; i++) {
+    for (int j = 0; j < repeticiones; j++) {
+      image(buffer, i * tileW, j * tileH, tileW, tileH);
+    }
+  }
+}
 ```
+#### circuito
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/fisico.jpeg" width="1024" height="550"/>
+#### Resultados
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/registro%201.png" width="1024" height="550"/>
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/registro%202.png" width="1024" height="550"/>
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/registro%203.png" width="1024" height="550"/>
+<img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/registro%204.png" width="1024" height="550"/>
