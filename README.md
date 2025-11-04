@@ -10,8 +10,10 @@
 9.[Ejercicio n°9: "If + Else"](#ejercicio-n9-if--else) <br>
 10.[Ejercicio n°10: "Botonera"](#ejercicio-n10-botonera) <br>
 11.[Ejercicio con nota: "Led pulsador modificado (intercambio de luces)"](#ejercicio-con-nota-led-pulsador-modificado-intercambio-de-luces) <br>
-12.[Ejercicio n°12: "Sensor Sharp"](https://github.com/mimii-07/Interfaz-II/tree/main?tab=readme-ov-file#ejercicio-n12-sensor-sharp) <br>
-
+12.[Ejercicio n°12: "Sensor Sharp"](#ejercicio-n12-sensor-sharp) <br>
+13.[Ejercicio n°13: "Sensor Humedad"](#ejercicio-n13-sensor-humedad) <br>
+14.[Ejercicio n°14: "Cuerpo, video, sensor sharp"](#ejercicio-n14-cuerpo-video-sensor-sharp) <br>
+15.[Ejercicio n°15: "
 
 ### Ejercicio n°1 Arduino: "Hola Mundo"
 
@@ -806,7 +808,7 @@ void draw() {
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/IMG_2112.jpeg" width="1024" height="550"/>
 <img src="https://raw.githubusercontent.com/mimii-07/Interfaz-II/refs/heads/main/img/Captura%20de%20pantalla%202025-10-21%20130905.png" width="1024" height="550"/>
 
-### Ejercicio N°15: Promedio de imagenes
+### Ejercicio n°15: Promedio de imagenes
 #### Codigo arduino
 ```js
 void setup() {
