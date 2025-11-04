@@ -10,6 +10,8 @@
 9.[Ejercicio n°9: "If + Else"](#ejercicio-n9-if--else) <br>
 10.[Ejercicio n°10: "Botonera"](#ejercicio-n10-botonera) <br>
 11.[Ejercicio con nota: "Led pulsador modificado (intercambio de luces)"](#ejercicio-con-nota-led-pulsador-modificado-intercambio-de-luces) <br>
+12.[Ejercicio n°12: "Sensor Sharp"] (https://github.com/mimii-07/Interfaz-II/tree/main?tab=readme-ov-file#ejercicio-n12-sensor-sharp) <br>
+
 
 ### Ejercicio n°1 Arduino: "Hola Mundo"
 
