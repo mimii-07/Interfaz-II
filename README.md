@@ -13,7 +13,8 @@
 12.[Ejercicio n°12: "Sensor Sharp"](#ejercicio-n12-sensor-sharp) <br>
 13.[Ejercicio n°13: "Sensor Humedad"](#ejercicio-n13-sensor-humedad) <br>
 14.[Ejercicio n°14: "Cuerpo, video, sensor sharp"](#ejercicio-n14-cuerpo-video-sensor-sharp) <br>
-15.[Ejercicio n°15: "
+15.[Ejercicio n°15: "Promedio de imagenes"](#ejercicio-n15-promedio-de-imagenes) <br>
+16.[Segunda entrega:"Cuerpo, video, sensor sharp" modificado](#segunda-entregacuerpo-video-sensor-sharp-modificado) <br>
 
 ### Ejercicio n°1 Arduino: "Hola Mundo"
 
